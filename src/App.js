@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { useForm } from 'react-hook-form'
+import isEmail from 'validator/lib/isEmail'
 
 export const App = () => {
   console.log('RENDER')
@@ -21,7 +22,7 @@ export const App = () => {
 
   const registerEmail = register('email', {
     required: true,
-    pattern: /\S+@\S+\.\S+/
+    validate: (value) => isEmail(value)
   })
   const registerPassword = register('password', {
     required: true,
