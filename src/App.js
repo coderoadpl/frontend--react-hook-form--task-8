@@ -9,7 +9,8 @@ export const App = () => {
   const {
     register,
     handleSubmit,
-    watch
+    watch,
+    formState: { errors }
   } = useForm()
 
   const onSubmit = handleSubmit(
@@ -24,17 +25,32 @@ export const App = () => {
   const password = watch('password')
 
   const registerEmail = register('email', {
-    required: true,
-    validate: (email) => isEmail(email)
+    required: {
+      value: true,
+      message: 'email is required'
+    },
+    validate: (email) => isEmail(email) || 'must be valid email address'
   })
   const registerPassword = register('password', {
-    required: true,
-    minLength: 6
+    required: {
+      value: true,
+      message: 'password is required'
+    },
+    minLength: {
+      value: 6,
+      message: 'you must type at least 6 characters'
+    }
   })
   const registerRepeatPassword = register('repeatPassword', {
-    required: true,
-    minLength: 6,
-    validate: (repeatPassword) => repeatPassword === password
+    required: {
+      value: true,
+      message: 'repeatPassword is required'
+    },
+    minLength: {
+      value: 6,
+      message: 'you must type at least 6 characters'
+    },
+    validate: (repeatPassword) => repeatPassword === password || 'passwords must match'
   })
 
   return (
@@ -49,16 +65,25 @@ export const App = () => {
           placeholder={'E-mail'}
           {...registerEmail}
         />
+        {
+          errors.email && <p>{errors.email.message}</p>
+        }
         <br />
         <input
           placeholder={'Password'}
           {...registerPassword}
         />
+        {
+          errors.password && <p>{errors.password.message}</p>
+        }
         <br />
         <input
-          placeholder={'Repeat rssword'}
+          placeholder={'Repeat password'}
           {...registerRepeatPassword}
         />
+        {
+          errors.repeatPassword && <p>{errors.repeatPassword.message}</p>
+        }
         <br />
         <button>
           SUBMIT
