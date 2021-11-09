@@ -1,7 +1,22 @@
 import React from 'react'
 
+import { useForm } from 'react-hook-form'
+
 export const App = () => {
   console.log('RENDER')
+
+  const {
+    register,
+    handleSubmit
+  } = useForm()
+
+  const onSubmit = handleSubmit((data, e) => {
+    console.log(data)
+  })
+
+  const registerEmail = register('email')
+  const registerPassword = register('password')
+  const registerRepeatPassword = register('repeatPassword')
 
   return (
     <div>
@@ -9,31 +24,21 @@ export const App = () => {
         Create account
       </h1>
       <form
-        onSubmit={(e) => {
-          e.preventDefault()
-          console.log(e)
-
-          const form = e.target
-          const formData = new FormData(form)
-
-          console.log(formData.get('email'))
-          console.log(formData.get('password'))
-          console.log(formData.get('repeatPassword'))
-        }}
+        onSubmit={onSubmit}
       >
         <input
           placeholder={'E-mail'}
-          name={'email'}
+          {...registerEmail}
         />
         <br />
         <input
           placeholder={'Password'}
-          name={'password'}
+          {...registerPassword}
         />
         <br />
         <input
           placeholder={'Repeat rssword'}
-          name={'repeatPassword'}
+          {...registerRepeatPassword}
         />
         <br />
         <button>
