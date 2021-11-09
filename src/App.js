@@ -12,10 +12,10 @@ export const App = () => {
 
   const onSubmit = handleSubmit(
     (data, e) => {
-      console.log(data)
+      console.log('VALID', data)
     },
     (errors, e) => {
-      console.log(errors)
+      console.log('ERROR', errors)
     }
   )
 
@@ -24,10 +24,12 @@ export const App = () => {
     pattern: /\S+@\S+\.\S+/
   })
   const registerPassword = register('password', {
-    required: true
+    required: true,
+    minLength: 6
   })
   const registerRepeatPassword = register('repeatPassword', {
-    required: true
+    required: true,
+    minLength: 6
   })
 
   return (
