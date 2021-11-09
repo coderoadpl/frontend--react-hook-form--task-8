@@ -10,13 +10,24 @@ export const App = () => {
     handleSubmit
   } = useForm()
 
-  const onSubmit = handleSubmit((data, e) => {
-    console.log(data)
-  })
+  const onSubmit = handleSubmit(
+    (data, e) => {
+      console.log(data)
+    },
+    (errors, e) => {
+      console.log(errors)
+    }
+  )
 
-  const registerEmail = register('email')
-  const registerPassword = register('password')
-  const registerRepeatPassword = register('repeatPassword')
+  const registerEmail = register('email', {
+    required: true
+  })
+  const registerPassword = register('password', {
+    required: true
+  })
+  const registerRepeatPassword = register('repeatPassword', {
+    required: true
+  })
 
   return (
     <div>
