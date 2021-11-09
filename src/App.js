@@ -8,7 +8,8 @@ export const App = () => {
 
   const {
     register,
-    handleSubmit
+    handleSubmit,
+    watch
   } = useForm()
 
   const onSubmit = handleSubmit(
@@ -20,9 +21,11 @@ export const App = () => {
     }
   )
 
+  const password = watch('password')
+
   const registerEmail = register('email', {
     required: true,
-    validate: (value) => isEmail(value)
+    validate: (email) => isEmail(email)
   })
   const registerPassword = register('password', {
     required: true,
@@ -30,7 +33,8 @@ export const App = () => {
   })
   const registerRepeatPassword = register('repeatPassword', {
     required: true,
-    minLength: 6
+    minLength: 6,
+    validate: (repeatPassword) => repeatPassword === password
   })
 
   return (
