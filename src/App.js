@@ -20,7 +20,8 @@ export const App = () => {
   )
 
   const registerEmail = register('email', {
-    required: true
+    required: true,
+    pattern: /\S+@\S+\.\S+/
   })
   const registerPassword = register('password', {
     required: true
