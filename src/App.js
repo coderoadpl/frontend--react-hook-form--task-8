@@ -25,7 +25,7 @@ export const App = () => {
     }
   )
 
-  const password = watch('password')
+  const [password, repeatPasswordCheck] = watch(['password', 'repeatPasswordCheck'])
 
   const registerEmail = register('email', {
     required: {
@@ -45,7 +45,7 @@ export const App = () => {
     }
   })
   const registerRepeatPasswordCheck = register('repeatPasswordCheck')
-  const registerRepeatPassword = register('repeatPassword', {
+  const registerRepeatPassword = repeatPasswordCheck && register('repeatPassword', {
     required: {
       value: true,
       message: 'repeatPassword is required'
@@ -89,14 +89,21 @@ export const App = () => {
           />
         </label>
         <br />
-        <input
-          placeholder={'Repeat password'}
-          {...registerRepeatPassword}
-        />
         {
-          errors.repeatPassword && <p>{errors.repeatPassword.message}</p>
+          repeatPasswordCheck ?
+            <>
+              <input
+                placeholder={'Repeat password'}
+                {...registerRepeatPassword}
+              />
+              {
+                errors.repeatPassword && <p>{errors.repeatPassword.message}</p>
+              }
+              <br />
+            </>
+            :
+            null
         }
-        <br />
         <button>
           SUBMIT
         </button>
