@@ -4,13 +4,22 @@ import FormCreateAccount from './components/FormCreateAccount'
 
 import { useForm, FormProvider } from 'react-hook-form'
 
+const loadData = async () => {
+  await new Promise((resolve) => setTimeout(resolve, 1000))
+  return JSON.parse(localStorage.getItem('form-state'))
+}
+
 export const App = () => {
   const methods = useForm({
     mode: 'onSubmit',
     reValidateMode: 'onChange',
-    defaultValues: JSON.parse(localStorage.getItem('form-state')) || {}
+    defaultValues: {}
   })
-  const { handleSubmit } = methods
+  const { handleSubmit, reset } = methods
+
+  React.useEffect(() => {
+    loadData().then((data) => reset(data))
+  }, [reset])
 
   const onSubmit = handleSubmit(
     (data, e) => {
