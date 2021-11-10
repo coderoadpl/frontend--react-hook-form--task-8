@@ -44,6 +44,7 @@ export const App = () => {
       message: 'you must type at least 6 characters'
     }
   })
+  const registerRepeatPasswordCheck = register('repeatPasswordCheck')
   const registerRepeatPassword = register('repeatPassword', {
     required: {
       value: true,
@@ -79,6 +80,14 @@ export const App = () => {
         {
           errors.password && <p>{errors.password.message}</p>
         }
+        <br />
+        <label>
+          Do you want to repeat password?
+          <input
+            type={'checkbox'}
+            {...registerRepeatPasswordCheck}
+          />
+        </label>
         <br />
         <input
           placeholder={'Repeat password'}
