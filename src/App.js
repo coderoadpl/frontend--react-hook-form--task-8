@@ -11,7 +11,10 @@ export const App = () => {
     handleSubmit,
     watch,
     formState: { errors }
-  } = useForm()
+  } = useForm({
+    mode: 'onSubmit',
+    reValidateMode: 'onChange'
+  })
 
   const onSubmit = handleSubmit(
     (data, e) => {
